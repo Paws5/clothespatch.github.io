@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kupon Gosok - Clothes Patch</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #222;
+      border: 2px solid gold;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+    }
+    .scratch-box {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      margin-top: 15px;
+      background: #ccc;
+      cursor: pointer;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .result {
+      font-size: 1.2em;
+      color: gold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Simple_gold_griffin_logo.svg/200px-Simple_gold_griffin_logo.svg.png" alt="Logo" class="logo">
+  <div class="card">
+    <h2>KUPON GOSOK</h2>
+    <p>Gosok di bawah ini untuk melihat hadiahmu!</p>
+    <div class="scratch-box" id="scratch">
+      <canvas width="280" height="100" id="canvas"></canvas>
+      <div id="prize" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const prizes = [
+      "🎉 Diskon 50%",
+      "🧵 Gratis 1 Patch",
+      "🚚 Gratis Ongkir",
+      "💸 Voucher Rp25.000",
+      "🙁 Coba Lagi!"
+    ];
+    const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+    document.getElementById("prize").innerText = randomPrize;
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#999';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let isDrawing = false;
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', e => {
+      if (!isDrawing) return;
+      const x = e.offsetX;
+      const y = e.offsetY;
+      ctx.clearRect(x - 10, y - 10, 20, 20);
+    });
+  </script>
+</body>
+</html>
